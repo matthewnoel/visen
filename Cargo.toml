@@ -1,0 +1,10 @@
+[package]
+name = "visen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+clearscreen = "3.0.0"
+humantime = "2.1.0"
+pulldown-cmark = "0.12.1"
