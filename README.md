@@ -1,16 +1,10 @@
 # Visen
 
-A screenplay visualization tool.
+A screenplay visualization engine.
 
-## About
+## ⚠️ WARNING ⚠️
 
-### Should I use this project?
-
-Sure, but note that it's being developed by [this guy](https://github.com/matthewnoel) for a script that he's writing, and you should expect breaking changes whenever.
-
-### Can I contribute?
-
-Sure, but note that this is currently an autocracy, and thorough contribution guidelines will be established later. You're a pretty cool cat for wanting to get in early, though!
+This tool is under active development and there will regularly be breaking changes without notice.
 
 ## Dependencies
 
@@ -37,4 +31,16 @@ Build and install the tool.
 
 ```bash
 cargo install --path .
+```
+
+## Usage
+
+```bash
+# Creates and populates a new project called my-movie
+visen init my-movie
+```
+
+```bash
+# Parses the local SCRIPT.md file, prints data about the script to the console, updates the README.md file, and updates the HTML version of the script in the docs directory.
+visen
 ```

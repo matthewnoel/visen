@@ -1,3 +1,5 @@
+use std::env;
+
 use pulldown_cmark::{Event, HeadingLevel, Parser, Tag, TagEnd};
 
 #[derive(Debug)]
@@ -31,6 +33,31 @@ impl std::fmt::Display for Script {
             self.word_count
         )
     }
+}
+
+pub fn init(project_name: &String) -> Result<(), ScriptError> {
+    let path = std::path::Path::new(project_name);
+    if path.exists() {
+        return Err(ScriptError::Io(std::io::Error::new(
+            std::io::ErrorKind::AlreadyExists,
+            "Project directory already exists",
+        )));
+    }
+    std::fs::create_dir_all(path)?;
+    env::set_current_dir(path)?;
+    std::fs::write(".visenrc", "v0.1.0\n")?;
+    std::fs::write("SCRIPT.md", format!("# {}\n\n", project_name))?;
+    return Ok(());
+}
+
+pub fn validate_command_is_running_inside_visen_project() -> Result<(), ScriptError> {
+    if std::path::Path::new(".visenrc").exists() {
+        return Ok(());
+    }
+    return Err(ScriptError::Io(std::io::Error::new(
+        std::io::ErrorKind::NotFound,
+        ".visenrc file not found. Are you sure you're in a visen project?",
+    )));
 }
 
 pub fn build_script() -> Result<Script, ScriptError> {
