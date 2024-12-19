@@ -1,10 +1,23 @@
-use visen::ScriptError;
+#![deny(non_snake_case)]
+#![deny(unused_mut)]
+#![deny(unused_must_use)]
+#![forbid(unsafe_code)]
+
+use human_panic::{setup_panic, Metadata};
 use std::env;
+use visen::ScriptError;
 
 fn main() -> Result<(), ScriptError> {
+    setup_panic!(
+        Metadata::new(env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"))
+            .authors("https://github.com/matthewnoel/visen/graphs/contributors")
+            .homepage("https://github.com/matthewnoel/visen")
+            .support("- Open an issue: https://github.com/matthewnoel/visen/issues")
+    );
+
     let args = env::args().collect::<Vec<String>>();
 
-    if args.len() > 1 && &args[1] ==  "init" {
+    if args.len() > 1 && &args[1] == "init" {
         if args.len() > 3 {
             println!("Too many arguments. The extra arguments will be ignored.");
         }
