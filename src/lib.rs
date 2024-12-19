@@ -1,3 +1,8 @@
+#![deny(non_snake_case)]
+#![deny(unused_mut)]
+#![deny(unused_must_use)]
+#![forbid(unsafe_code)]
+
 use std::env;
 
 use pulldown_cmark::{Event, HeadingLevel, Parser, Tag, TagEnd};
@@ -144,7 +149,9 @@ pub fn write_readme(script: &Script) -> Result<(), ScriptError> {
     let readme = format!(
         "# {}\n\nEstimated runtime: {}\n\nWord count (dialogue): {}\n\nWord count (total): {}\n",
         script.title,
-        seconds_to_human_shorthand_duration(script.blocked_seconds + word_count_to_seconds(script.dialogue_word_count)),
+        seconds_to_human_shorthand_duration(
+            script.blocked_seconds + word_count_to_seconds(script.dialogue_word_count)
+        ),
         script.dialogue_word_count,
         script.word_count
     );
